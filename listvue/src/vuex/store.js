@@ -5,12 +5,12 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state:{
-      lista: {
-        id:'',
-        ordem: 0,
-        descricao: '',
-        finalizada: false,
-      }
+      lista: [
+        {
+          nome: 'teste',
+          excluir: 'x',
+        }
+      ]
     },
     mutations:{
         SET_LISTA (store, obj){
