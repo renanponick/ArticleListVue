@@ -1,5 +1,5 @@
 <template>
-    <v-container id="lista">
+    <v-container id="listar">
         <v-row class="text-center">
            <v-data-table
             :headers="cabecalho"
@@ -39,9 +39,12 @@
 
 
 <script>
+  import { mapState } from 'vuex'
   export default {
     name: 'Listas',
-
+    computed: {
+      ...mapState(['lista'])
+    },
     data: () => ({
         singleSelect: false,
         selected: [],
@@ -52,26 +55,19 @@
         //aqui sera colocado o conteudo da lista
         tarefas: [
           {
-            nome: 'Varrer',
+            nome: this.lista[0].nome,
             excluir: 'x',
-          },
-          {
-            nome: 'Lavar Louça',
-            excluir: 'x',
-          },
-          {
-            nome: 'Trocar TV',
-            excluir: 'x',
-          },
+          }
         ],
         rules: [
             value => !!value || 'Required.',
             value => (value && value.length >= 3) || 'Min 3 characters',
         ],
     }),
+    //mounted: function (){debugger;},
     methods: {
         adicionar () {
-            alert(document.getElementById("teste").value);
+            alert(this.lista[0].nome);
         },
     },
 };
