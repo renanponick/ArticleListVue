@@ -10,7 +10,7 @@
 
 <script>
   export default {
-    name: 'Cadastrar',
+    name: 'CadastrarLista',
 
     data: () => ({
       //
