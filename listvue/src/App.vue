@@ -12,27 +12,60 @@
     
 
     <v-main>
-      <Cadastrar/>
+      <CadastrarLista/>
 
       <Listas/>
     </v-main>
 
   </v-app>
 </template>
+
 <script>
-import Cadastrar from './components/Cadastrar';
-import Listas from './components/Listas';
+  import CadastrarLista from './components/CadastrarLista';
+  import Listas from './components/Listas';
 
-export default {
-  name: 'App',
+  export default {
+    name: 'App',
+    props: ['some-property-here'],
+    
+    vuex: {
+      getters: {},
+      actions: {}
+    },
 
-  components: {
-    Cadastrar,
-    Listas,
-  },
-
-  data: () => ({
-    //
-  }),
-};
+    components: {
+      CadastrarLista,
+      Listas,
+    },
+    
+    data () { // << some local state
+      return {
+        singleSelect: false,
+        selected: [],
+        cabecalho: [
+          { text: 'Lista', align: 'start', value: 'nome' },
+          { text: 'Excluir', align: 'end', value: 'excluir' }
+        ],
+        //aqui sera colocado o conteudo da lista
+        tarefas: [
+          {
+            nome: 'Varrer',
+            excluir: 'x',
+          },
+          {
+            nome: 'Lavar Louça',
+            excluir: 'x',
+          },
+          {
+            nome: 'Trocar TV',
+            excluir: 'x',
+          },
+        ],
+        rules: [
+            value => !!value || 'Required.',
+            value => (value && value.length >= 3) || 'Min 3 characters',
+        ],
+      }
+    }
+  }
 </script>

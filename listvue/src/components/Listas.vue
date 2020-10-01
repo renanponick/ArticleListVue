@@ -35,8 +35,6 @@
             </v-form>
         </v-row>
     </v-container>
-
-   
 </template>
 
 
