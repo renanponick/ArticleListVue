@@ -5,16 +5,11 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state:{
-      lista: [
-        {
-          nome: 'teste',
-          excluir: 'x',
-        }
-      ]
+      lista: []
     },
-    mutations:{
-        SET_LISTA (store, obj){
-            store.lista = obj.lista
-        }
-    }
+    getters: {
+      filters({lista}){
+        return lista.length;
+      },
+    },
 });

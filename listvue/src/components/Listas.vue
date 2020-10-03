@@ -1,74 +1,60 @@
 <template>
-    <v-container id="listar">
-        <v-row class="text-center">
+    <v-container>
+        <v-row>
            <v-data-table
             :headers="cabecalho"
-            :items="tarefas"
+            :items="this.lista"
             item-key="nome"
             show-select = true
-           
-            class="elevation-1"
+            class="col-12"
             >
+            <template v-slot:item.actions="{ item }">
+                <v-icon
+                    small
+                    class="mr-2"
+                    @click="editItem(item)"
+                >mdi-pencil
+                </v-icon>
+                <v-icon
+                    small
+                    @click="deleteItem(item)"
+                >mdi-delete
+                </v-icon>
+            </template>
             </v-data-table> 
-
-
-            <v-form
-                ref="form"
-                v-model="valid"
-                lazy-validation
-            >
-                <v-text-field
-                    id="teste"
-                    class="mt-4 ml-4"
-                    label="Digite aqui..."
-                    :rules="rules"
-                    hide-details="auto"
-                ></v-text-field>
-
-                <v-btn
-                    color="success"
-                    class="mr-4"
-                    @click="adicionar"
-                >
-                    Validate
-                </v-btn>
-            </v-form>
         </v-row>
     </v-container>
 </template>
-
-
 <script>
   import { mapState } from 'vuex'
   export default {
-    name: 'Listas',
     computed: {
-      ...mapState(['lista'])
+        ...mapState(['lista']),
+        formTitle () {
+            return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+        },
     },
     data: () => ({
         singleSelect: false,
         selected: [],
+        editedIndex: -1,
         cabecalho: [
           { text: 'Lista', align: 'start', value: 'nome' },
-          { text: 'Excluir', align: 'end', value: 'excluir' }
-        ],
-        //aqui sera colocado o conteudo da lista
-        tarefas: [
-          {
-            nome: this.lista[0].nome,
-            excluir: 'x',
-          }
-        ],
-        rules: [
-            value => !!value || 'Required.',
-            value => (value && value.length >= 3) || 'Min 3 characters',
-        ],
+          { text: 'Ações', align: 'end', value: 'actions' }
+        ] ,
+       
     }),
-    //mounted: function (){debugger;},
-    methods: {
-        adicionar () {
-            alert(this.lista[0].nome);
-        },
+    methods:{
+    editItem (item) {
+        document.getElementById("inputTarefa").value = item.nome;
+        
     },
+
+    deleteItem (item) {
+        this.lista.splice(this.lista.indexOf(item),1);
+    }, 
+
+    }
+    
 };
 </script>
