@@ -11,7 +11,6 @@
           id="inputTarefa"
           class="col-4"
           label="Tarefa..."
-          :rules="rules"
           autocomplete="off"
         ></v-text-field>
         <v-btn
@@ -26,7 +25,7 @@
           color="warning"
           class="col-4"
           hidden
-          @click="alterarTarefa"
+          @click="alterarTarefa(this)"
         >Alterar
         </v-btn>
       </v-form>
@@ -73,11 +72,9 @@
         { text: 'Lista', align: 'start', value: 'nome' },
         { text: 'Ações', align: 'end', value: 'actions' }
       ],
-      rules: [
-        value => !!value || 'Required.',
-        value => (value && value.length >= 3) || 'Min 3 characters',
-        ],
+     
       inpTarefa: inpTarefa,
+      itemM:{},
     }),
 
     methods:{
@@ -95,26 +92,31 @@
 
       btnDeleteItem(item) {
         this.lista.splice(this.lista.indexOf(item),1);
+
       },
 
       btnEditarTarefa(item) {
         this.inpTarefa = item.nome;
         document.getElementById("btCadastrar").hidden = true;
         document.getElementById("btAlterar").hidden = false;
+        this.itemM = item;
       },
 
-      alterarTarefa(item){
-        console.log(item.id);
+      alterarTarefa(){
         var input = document.getElementById("inputTarefa");
         if(validaInput(input)){
-          this.lista.indexOf(item.id).nome = input.value;
+          this.lista[this.itemM.id].nome = input.value;
+          document.getElementById("btCadastrar").hidden = false;
+          document.getElementById("btAlterar").hidden = true;
+          this.itemM="";
+          this.inpTarefa="";
         }
       },
       
     }
   }
   function validaInput(input){
-    if((input.value.length < 3) || (input.value.length == 0)){
+    if(input.value.length < 3){
       alert ("Preencha o campo corretamente");
       return false;
     }
