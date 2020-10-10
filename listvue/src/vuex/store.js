@@ -7,9 +7,4 @@ export default new Vuex.Store({
     state:{
       lista: []
     },
-    getters: {
-      filters({lista}){
-        return lista.length;
-      },
-    },
 });

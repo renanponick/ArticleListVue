@@ -58,7 +58,7 @@
 
 
 <script>
-  var inpTarefa = "aqui";
+  var inpTarefa = "";
   import { mapState } from 'vuex';
   export default {
     computed: {
